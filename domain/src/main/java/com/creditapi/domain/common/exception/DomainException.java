@@ -7,18 +7,10 @@ import lombok.Setter;
 @Setter
 public class DomainException extends RuntimeException {
 
-    private final String key;
-    private final String[] args;
+    private final String messageKey;
 
-    public DomainException(String key) {
-        super(key);
-        this.key = key;
-        args = new String[0];
-    }
-
-    public DomainException(String key, String... args) {
-        super(key);
-        this.key = key;
-        this.args = args;
+    public DomainException(String messageKey) {
+        super(messageKey);
+        this.messageKey = messageKey;
     }
 }

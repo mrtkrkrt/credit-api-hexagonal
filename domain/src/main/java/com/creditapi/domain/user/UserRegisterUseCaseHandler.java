@@ -1,5 +1,7 @@
 package com.creditapi.domain.user;
 
+import com.creditapi.domain.common.exception.DomainException;
+import com.creditapi.domain.common.exception.ErrorCode;
 import com.creditapi.domain.common.usecase.DomainComponent;
 import com.creditapi.domain.common.usecase.ObservableUseCasePublisher;
 import com.creditapi.domain.common.usecase.UseCaseHandler;
@@ -7,9 +9,7 @@ import com.creditapi.domain.user.model.User;
 import com.creditapi.domain.user.port.UserPort;
 import com.creditapi.domain.user.usecase.RegisterUser;
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @DomainComponent
 public class UserRegisterUseCaseHandler extends ObservableUseCasePublisher implements UseCaseHandler<User, RegisterUser> {
 
@@ -24,13 +24,12 @@ public class UserRegisterUseCaseHandler extends ObservableUseCasePublisher imple
     @Transactional
     public User handle(RegisterUser useCase) {
         checkUserExists(useCase.getIdentityNumber());
-        log.info("User {} registered successfully", user.getId());
-        return user;
+        return userPort.create(useCase);
     }
 
     private void checkUserExists(String identityNumber) {
         if (userPort.retrieveUserByIdentityNumber(identityNumber).isPresent()) {
-            throw new DomainException("User already exists with identity number: " + identityNumber);
+            throw new DomainException(ErrorCode.USER_ALREADY_EXISTS.getMessageKey());
         }
     }
 }
