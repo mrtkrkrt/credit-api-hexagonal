@@ -29,7 +29,7 @@ public class UserRegisterUseCaseHandler extends ObservableUseCasePublisher imple
 
     private void checkUserExists(String identityNumber) {
         if (userPort.retrieveUserByIdentityNumber(identityNumber).isPresent()) {
-            throw new DomainException(ErrorCode.USER_ALREADY_EXISTS.getMessageKey());
+            throw new DomainException(ErrorCode.USER_ALREADY_EXISTS.getMessage());
         }
     }
 }

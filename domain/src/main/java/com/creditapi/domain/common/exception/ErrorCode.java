@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
-    USER_ALREADY_EXISTS("user.already.exists");
+    USER_ALREADY_EXISTS("User already exists");
 
-    private final String messageKey;
-    ErrorCode(String messageKey) {
-        this.messageKey = messageKey;
+    private final String message;
+    ErrorCode(String message) {
+        this.message = message;
     }
 }
