@@ -8,5 +8,7 @@ import java.util.Optional;
 public interface UserPort {
     Optional<User> retrieveUserByIdentityNumber(String identityNumber);
 
+    Optional<User> retrieveUserById(Long id);
+
     User create(RegisterUser registerUser);
 }

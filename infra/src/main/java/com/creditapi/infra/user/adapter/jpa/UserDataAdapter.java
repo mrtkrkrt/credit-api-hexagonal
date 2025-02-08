@@ -25,6 +25,11 @@ public class UserDataAdapter implements UserPort {
     }
 
     @Override
+    public Optional<User> retrieveUserById(Long id) {
+        return userJpaRepository.findById(id).map(UserEntity::toDomain);
+    }
+
+    @Override
     public User create(RegisterUser registerUser) {
         var userEntity = UserEntity.builder()
                 .identityNumber(registerUser.getIdentityNumber())

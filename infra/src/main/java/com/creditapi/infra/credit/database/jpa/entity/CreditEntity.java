@@ -1,5 +1,6 @@
 package com.creditapi.infra.credit.database.jpa.entity;
 
+import com.creditapi.domain.credit.model.Credit;
 import com.creditapi.domain.credit.model.CreditStatus;
 import com.creditapi.infra.installment.database.jpa.entity.InstallmentEntity;
 import jakarta.persistence.*;
@@ -38,4 +39,13 @@ public class CreditEntity {
     private Instant updatedAt;
 
 
+    public static CreditEntity fromDomain(Credit credit) {
+        return CreditEntity.builder()
+                .id(credit.getId())
+                .status(credit.getStatus())
+                .amount(credit.getAmount())
+                .userId(credit.getUserId())
+                .installments(InstallmentEntity.fromDomain(credit.getInstallments()))
+                .build();
+    }
 }
